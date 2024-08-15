@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route"
+import { error } from "console";
 
 const systemPrompt = `
 You are a flashcard creator, you take in text and create multiple flashcards from it. Make sure to create exactly 10 flashcards.
@@ -15,7 +18,13 @@ You should return in the following JSON format:
 }
 `
 
+
 export async function POST(req) {
+    const session = await getServerSession(authOptions)
+    if (!session) {
+      return new NextResponse(error("Not authorized, create an account to access this endpoint", 401))
+    }  
+
     const openai = new OpenAI()
     const data = await req.text()
     const completion = await openai.chat.completions.create({
