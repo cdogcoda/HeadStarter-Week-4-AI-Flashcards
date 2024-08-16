@@ -49,7 +49,7 @@ export async function GET(req) {
         if (!session_id) {
             throw new Error('Session ID is required')
         }
-        const checkoutSession = await stripoe.checkout.sessions.retrive(session_id)
+        const checkoutSession = await stripe.checkout.sessions.retrieve(session_id)
         return new NextResponse.json(checkoutSession, {
             status: 200,
         })
