@@ -32,9 +32,7 @@ export async function POST(req) {
     }
     try {
         const checkoutSession = await stripe.checkout.sessions.create(params)
-        return new NextResponse.json(checkoutSession, {
-            status: 200,
-        })
+        return new NextResponse.json(checkoutSession, {status: 200})
 
     } catch (error) {
         console.error('Error creating session:', error)
@@ -50,9 +48,7 @@ export async function GET(req) {
             throw new Error('Session ID is required')
         }
         const checkoutSession = await stripe.checkout.sessions.retrieve(session_id)
-        return new NextResponse.json(checkoutSession, {
-            status: 200,
-        })
+        return new NextResponse.json(checkoutSession, {status: 200})
     } catch (error) {
         console.error('Error retrieving checkout session:', error)
         return new NextResponse.json({error: {message: error.message}}, {status: 500})

@@ -53,7 +53,11 @@ export default function Generate() {
     return (
         <Container maxWidth='md'>
             <Box sx={{my: 4}}>
-                <Typography variant='h4' component='h1' gutterBottom>
+                <Typography 
+                    variant='h4' 
+                    component='h1' 
+                    gutterBottom
+                >
                     Generate Flashcards
                 </Typography>
                 <TextField
@@ -90,7 +94,13 @@ export default function Generate() {
                             spacing={2}
                         >
                             {flashcards.map((flashcard, index) => (
-                                <Grid item xs={12} sm={6} md={4} key={index}>
+                                <Grid 
+                                    item 
+                                    xs={12} 
+                                    sm={6} 
+                                    md={4} 
+                                    key={index}
+                                >
                                     <Card>
                                         <CardContent>
                                             <Typography variant="h6">Front: </Typography>
@@ -144,7 +154,11 @@ export default function Generate() {
                     <Box 
                         sx={{mt: 4, display: 'flex', justifyContent: 'center'}}
                     >
-                        <Button variant='contained' color='primary' onClick={handleOpenDialog}>
+                        <Button 
+                            variant='contained' 
+                            color='primary' 
+                            onClick={handleOpenDialog}
+                        >
                             Save Flashcards
                         </Button>
                     </Box>
