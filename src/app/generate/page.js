@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from "react"
-import { Container, TextField, Button, Typography, Box, Grid, Dialog, DialogTitle, DialogContentText, DialogContent, DialogActions } from "@mui/material"
+import { Container, TextField, Button, Typography, Box, Grid, Dialog, DialogTitle, DialogContentText, DialogContent, DialogActions, Card, CardContent } from "@mui/material"
+import { db } from "@/prisma"
 
 export default function Generate() {
     const [text, setText] = useState('')
@@ -19,7 +20,7 @@ export default function Generate() {
         }
 
         try {
-            // This is where Whit and Viet's code should go for storing the flashcard sets in the database 
+             
         } catch (error) {
             console.error('Error saving flashcards:', error)
             alert('An error occurred while saving flashcards. Please try again.')
@@ -38,13 +39,12 @@ export default function Generate() {
                 body: text,
             })
 
-            // if (!response.ok) {
-            //     throw new Error('Failed to generate flashcards')
-            // }
+            if (!response.ok) {
+                throw new Error('Failed to generate flashcards')
+            }
 
-            // const data = await response.json
-            console.log(response.json)
-            // setFlashcards(data)
+            const data = await response.json()
+            setFlashcards(data)
         } catch (error) {
             console.error('Error generating flashcards:', error)
             alert('An error occurred while generating flashcards. Please try again.')
