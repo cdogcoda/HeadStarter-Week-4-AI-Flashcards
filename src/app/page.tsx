@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import AuthButtonClient from "@/components/AuthButton.client"
 
 export default function Home() {
   const router = useRouter();
@@ -14,8 +15,9 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-blue-500 to-purple-500 text-white">
       {/* Header */}
       <header className="w-full bg-blue-800 text-white p-4 shadow-lg">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-3xl font-extrabold">FlashMind ⚡</h1>
+          <AuthButtonClient />
         </div>
       </header>
 
@@ -62,3 +64,30 @@ export default function Home() {
     </div>
   );
 }
+
+// import { auth } from "@/auth"
+// import AuthButton from "@/components/AuthButton.server"
+// import { db } from "@/prisma";
+
+// export default async function Home() {
+//   const session = await auth()
+
+  // const testDbCall = await db.user.findMany({ 
+  //   where: {
+  //     email: { 
+  //       contains: "whitallee@gmail.com",
+  //     },
+  //   },
+  //   // cacheStrategy: { ttl: 60 },
+  // });
+
+//   return (
+//     <>
+//       <h1>Home</h1>
+//       <div>{JSON.stringify(session, null, 2)}</div>
+//       {/* <h2>Test db call</h2>
+//       <div>{JSON.stringify(testDbCall)}</div> */}
+//       <AuthButton/>
+//     </>
+//   )
+// }

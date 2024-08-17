@@ -6,8 +6,8 @@ import { useState, useEffect } from "react"
 
 export default function FlashcardSets() {
     let user // Need to somehow retrieve the user's data; Bill's video uses Clerk Auth's useUser hook to get the loading status, login status, and the user
-    const [flashcardSets, setFlashcardSets] = useState()
-    const router = useRouter() 
+    const [flashcardSets, setFlashcardSets] = useState([])
+    // const router = useRouter() 
 
     useEffect(() => {
         async function getFlashcardSets() {
@@ -16,7 +16,7 @@ export default function FlashcardSets() {
     }, [user])
 
     const handleCardClick = (id) => {
-        router.push(`/flashcards?id=${id}`)
+        // router.push(`/flashcards?id=${id}`)
     }
 
     return (
