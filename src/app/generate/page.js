@@ -20,7 +20,7 @@ export default function Generate() {
         }
 
         try {
-             
+            //  const saveResponse = await db.response
         } catch (error) {
             console.error('Error saving flashcards:', error)
             alert('An error occurred while saving flashcards. Please try again.')
