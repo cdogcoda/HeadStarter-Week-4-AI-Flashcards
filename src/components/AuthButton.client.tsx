@@ -10,16 +10,16 @@ export default function AuthButtonClient(){
     const path = usePathname();
 
     return session?.data?.user ? (
-        <button className="border-gray-700 border rounded-lg p-2" onClick={async () =>
+        <button className="border-[3px] border-white rounded-lg p-2" onClick={async () =>
             {
                 await signOut()
-                // revalidatePath("/")
+                redirect(path)
             }
         }>
-            {session.data?.user?.name} : Sign Out
+            {session.data?.user?.name} | Sign Out
         </button>
     ) : (
-        <button className="border-gray-700 border rounded-lg p-2" onClick={async () => await signIn()}>
+        <button className="border-[3px] border-white rounded-lg p-2" onClick={async () => await signIn()}>
             Sign In
         </button>
     )
