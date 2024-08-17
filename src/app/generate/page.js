@@ -3,8 +3,15 @@
 import { useState } from "react"
 import { Container, TextField, Button, Typography, Box, Grid, Dialog, DialogTitle, DialogContentText, DialogContent, DialogActions, Card, CardContent } from "@mui/material"
 import { db } from "@/prisma"
+import { useSession } from "next-auth/react"
+import { redirect } from "next/dist/server/api-utils"
 
 export default function Generate() {
+    const session = useSession()
+    if (!session) {
+        redirect("/")
+    }
+
     const [text, setText] = useState('')
     const [flashcards, setFlashcards] = useState([])
     const [setName, setSetName] = useState('')
@@ -13,6 +20,14 @@ export default function Generate() {
     const handleOpenDialog = () => setDialogOpen(true)
     const handleCloseDialog = () => setDialogOpen(false)
 
+    const createSet = async () => {
+        // dbResponse = await db.flashcardSet.create({
+        //     data: {
+
+        //     }
+        // })
+    }
+
     const saveFlashcards = async () => {
         if (!setName.trim()) {
             alert('Please enter a name for your flashcard set.')
@@ -20,7 +35,7 @@ export default function Generate() {
         }
 
         try {
-            //  const saveResponse = await db.response WHITS AT THIS SPOT
+             const saveResponse = await db.
             // Viet and Whit will work on this part to implement the backend API call
             console.log('Saving flashcards:', { setName, flashcards });
             alert('Flashcards saved successfully!');

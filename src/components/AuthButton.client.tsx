@@ -13,7 +13,7 @@ export default function AuthButtonClient(){
         <button className="border-[3px] border-white rounded-lg p-2" onClick={async () =>
             {
                 await signOut()
-                redirect(path)
+                redirect("/")
             }
         }>
             {session.data?.user?.name} | Sign Out
