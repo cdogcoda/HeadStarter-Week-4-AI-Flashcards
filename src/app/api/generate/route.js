@@ -17,16 +17,14 @@ You should return in the following JSON format:
 `
 
 export async function POST(req) {
+  // only accessible if logged in
     const session = await auth();
-    if (session && session.user) {
-        session.user = {
-            name: session.user.name,
-            email: session.user.email,
-        }
-      } else {
-        return new NextResponse 
-        // stopped here to push to GH so yall con see if you want, still working on this
-      }
+    console.log(session)
+    if (!session) {
+      return new NextResponse.JSON({ error: "Unauthorized to generate flashcards"}, { status: 401 })
+    }
+
+
     const openai = new OpenAI()
     const data = await req.text()
     const completion = await openai.chat.completions.create({
@@ -38,5 +36,6 @@ export async function POST(req) {
         response_format: {type: 'json_object'},
     })
     const flashcards = JSON.parse(completion.choices[0].message.content)
+    console.log(flashcards.flashcards)
     return new NextResponse(flashcards.flashcards)
 }

@@ -38,12 +38,13 @@ export default function Generate() {
                 body: text,
             })
 
-            if (!response.ok) {
-                throw new Error('Failed to generate flashcards')
-            }
+            // if (!response.ok) {
+            //     throw new Error('Failed to generate flashcards')
+            // }
 
-            const data = await response.json()
-            setFlashcards(data)
+            // const data = await response.json
+            console.log(response.json)
+            // setFlashcards(data)
         } catch (error) {
             console.error('Error generating flashcards:', error)
             alert('An error occurred while generating flashcards. Please try again.')
