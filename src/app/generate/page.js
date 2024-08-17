@@ -20,7 +20,11 @@ export default function Generate() {
         }
 
         try {
-            //  const saveResponse = await db.response
+            //  const saveResponse = await db.response WHITS AT THIS SPOT
+            // Viet and Whit will work on this part to implement the backend API call
+            console.log('Saving flashcards:', { setName, flashcards });
+            alert('Flashcards saved successfully!');
+            setDialogOpen(false);
         } catch (error) {
             console.error('Error saving flashcards:', error)
             alert('An error occurred while saving flashcards. Please try again.')
@@ -37,6 +41,7 @@ export default function Generate() {
             const response = await fetch('api/generate', {
                 method: 'POST',
                 body: text,
+                headers: { 'Content-Type' : 'text/plain' }
             })
 
             if (!response.ok) {
@@ -44,7 +49,7 @@ export default function Generate() {
             }
 
             const data = await response.json()
-            setFlashcards(data)
+            setFlashcards(data) //check if i need the .flashcards or not
         } catch (error) {
             console.error('Error generating flashcards:', error)
             alert('An error occurred while generating flashcards. Please try again.')

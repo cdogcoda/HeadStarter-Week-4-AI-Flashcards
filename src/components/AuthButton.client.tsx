@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react"
 import { signIn, signOut } from "@/auth/helpers"
 import { redirect, usePathname } from "next/navigation";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 
 export default function AuthButtonClient(){
     const session = useSession();
