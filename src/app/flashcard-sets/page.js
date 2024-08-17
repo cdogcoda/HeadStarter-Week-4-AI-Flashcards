@@ -5,8 +5,7 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 
 export default function FlashcardSets() {
-    // Need to somehow retrieve the user's data; Bill's video uses Clerk Auth's useUser hook to get the loading status, login status, and the user
-    let user 
+    let user // Need to somehow retrieve the user's data; Bill's video uses Clerk Auth's useUser hook to get the loading status, login status, and the user
     const [flashcardSets, setFlashcardSets] = useState()
     const router = useRouter() 
 
@@ -17,7 +16,7 @@ export default function FlashcardSets() {
     }, [user])
 
     const handleCardClick = (id) => {
-        router.push(`/flashcard?id=${id}`)
+        router.push(`/flashcards?id=${id}`)
     }
 
     return (
