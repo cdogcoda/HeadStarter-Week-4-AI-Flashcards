@@ -1,77 +1,91 @@
-'use client'
+'use client';
 
-import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/material"
-import { useSearchParams } from "next/navigation"
-import { useState, useEffect } from "react"
+import { Box, Card, CardContent, Container, Grid, Typography } from '@mui/material';
+import { useState } from 'react';
 
 export default function Flashcards() {
-    let user // Need to somehow retrieve the user's data; Bill's video uses Clerk Auth's useUser hook to get the loading status, login status, and the user
-    const [flashcards, setFlashcards] = useState([])
-    const [flipped, setFlipped] = useState({})
+    const [flashcards] = useState([
+        { id: 1, front: 'What is the capital of France?', back: 'Paris' },
+        { id: 2, front: 'What is the largest planet?', back: 'Jupiter' },
+        { id: 3, front: 'Who wrote "Hamlet"?', back: 'William Shakespeare' },
+    ]);
 
-    const searchParams = useSearchParams()
-    const search = searchParams.get('id')
-
-    useEffect(() => {
-        async function getFlashcards() {
-            if (!search || !user) {
-                return
-            }
-            const flashcardsList = [] 
-            // Retrieve the specific set of flashcards and push each card into 'flashcardsList' 
-            setFlashcards(flashcardsList)
-        }
-        getFlashcards()
-    }, [search, user])
+    const [flipped, setFlipped] = useState({});
 
     const handleCardClick = (id) => {
         setFlipped((prev) => ({
             ...prev,
             [id]: !prev[id],
-        }))
-    }
+        }));
+    };
 
     return (
-        <Container>
-            <Grid>
+        <Container sx={{ mt: 4 }}>
+            <Grid container spacing={2}>
                 {flashcards.map((flashcard) => (
-                    <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={4}
-                        key={flashcard.id}
-                    >
-                        <Card>
-                            <CardActionArea
-                                onClick={() => {handleCardClick(flashcard.id)}}
+                    <Grid item xs={12} sm={6} md={4} key={flashcard.id}>
+                        <Box
+                            sx={{
+                                perspective: '1000px',
+                                cursor: 'pointer',
+                                width: '100%',
+                                height: '200px',
+                            }}
+                            onClick={() => handleCardClick(flashcard.id)}
+                        >
+                            <Box
+                                sx={{
+                                    position: 'relative',
+                                    width: '100%',
+                                    height: '100%',
+                                    transformStyle: 'preserve-3d',
+                                    transform: flipped[flashcard.id] ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                                    transition: 'transform 0.6s',
+                                }}
                             >
-                                <CardContent>
-                                    <Box sx={{}}>
-                                        <div>
-                                            <div>
-                                                <Typography
-                                                    variant='h5' component='div'
-                                                >
-                                                    {flashcard.front}
-                                                </Typography>
-                                            </div>
-                                            <div>
-                                                <Typography
-                                                    variant='h5'
-                                                    component='div'
-                                                >
-                                                    {flashcard.back}
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                    </Box>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
+                                {/* Front Side */}
+                                <Card
+                                    sx={{
+                                        position: 'absolute',
+                                        width: '100%',
+                                        height: '100%',
+                                        backfaceVisibility: 'hidden',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <CardContent>
+                                        <Typography variant="h5">
+                                            {flashcard.front}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+
+                                {/* Back Side */}
+                                <Card
+                                    sx={{
+                                        position: 'absolute',
+                                        width: '100%',
+                                        height: '100%',
+                                        backfaceVisibility: 'hidden',
+                                        transform: 'rotateY(180deg)',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <CardContent>
+                                        <Typography variant="h5">
+                                            {flashcard.back}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Box>
+                        </Box>
                     </Grid>
                 ))}
             </Grid>
         </Container>
-    )
+    );
 }
